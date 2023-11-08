@@ -22,5 +22,5 @@ Le but de ce dépot est d'exposer des idées de visualisation des jeux de donné
 # Experimentations avec les jeux de données
 
 Pour l'évenement, deux jeux de données sont proposés:   
-- [vico.hypotheses.org](./vico.hypotheses.org/vico_exploration.html)
+- [vico.hypotheses.org](https://camembr.github.io/pud_2023/vico.hypotheses.org/vico_exploration.html)
 - []()

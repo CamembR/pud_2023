@@ -6,6 +6,8 @@ format: html
 
 ## Setup
 ```{r}
+#| label: setup
+#| echo: false
 library(tidyverse)
 library(visdat)
 library(plotluck)
@@ -14,7 +16,7 @@ library(plotluck)
 
 ## Chargement des données et nettoyage
 
-Les variables catégorielles ne sont pas ordonnées dans le jeu de données, mais elles le sont sémantiquement. On va donc aligner les formats de donnée avec leur sémantique : 
+Les variables catégorielles ne sont pas ordonnées dans le jeu de données, mais elles le sont sémantiquement. On va donc aligner les formats de donnée avec leur sémantique:   
 
 ```{r}
 vico <- readxl::read_xlsx("data/vico2020.xlsx") %>%
@@ -70,9 +72,9 @@ vico <- readxl::read_xlsx("data/vico2020.xlsx") %>%
     DIPLONIV = factor(DIPLONIV,
                       ordered = TRUE,
                       levels = c(
-                        "Aucun diplôme" ,                                                                                                          
+                        "Aucun diplôme" ,   
                         "Le certificat d'études ou un diplôme de l'enseignement secondaire autre que le baccalauréat (par exemple : CAP, BEP, Bre",
-                        "Le baccalauréat",                                                                                                         
+                        "Le baccalauréat",
                         "Un diplôme universitaire correspondant à moins de 4 années d'études supérieures après le baccalauréat (par exemple : DUT",
                         "Un diplôme universitaire correspondant à plus de 4 années d'études supérieures après le baccalauréat (maîtrise, DEA, DES"
                       )
@@ -97,6 +99,7 @@ vico <- readxl::read_xlsx("data/vico2020.xlsx") %>%
 
 ## Quelques visualisations de diagnostique
 ```{r}
+#| label: diagnostic plots
 vis_miss(vico %>% select(-ID), cluster = TRUE)
 vis_dat(vico %>% select(-ID))
 ```
@@ -106,10 +109,14 @@ vis_dat(vico %>% select(-ID))
 
 ```{r}
 #| echo: false
+#| warning: false
+#| label: exploratory plots
 plotluck(data = vico %>% select(-ID), formula = age ~ .)
 ```
+
 ```{r}
 #| echo: false
+#| warning: false
 plotluck(data = vico %>% select(-ID), formula = POIDS_init ~ .)
 ```
 
@@ -117,11 +124,32 @@ plotluck(data = vico %>% select(-ID), formula = POIDS_init ~ .)
 # Des histoires avec ces données
 
 ## Les maronniers
+
+Les variables `DIPLONIV` pour le Niveau de Diplôme et `REV` pour les revenus sont trop verbeuses pour des graphiques, on la recode ici:  
 ```{r}
 #| echo: false
-plotluck(data = vico %>% select(-ID), formula = REV ~ DIPLONIV)
-plotluck(data = vico %>% select(-ID), formula = REV ~ RESNB)
-plotluck(data = vico %>% select(-ID), formula = REV ~ DIPLONIV + RESNB)
+#| warning: false
+#| label: data stories
+vico_plot <- vico %>% mutate(DIPLONIV = fct_recode(DIPLONIV,
+                        "CAP, BEP ou eq." = "Le certificat d'études ou un diplôme de l'enseignement secondaire autre que le baccalauréat (par exemple : CAP, BEP, Bre",
+                        "Baccalauréat" = "Le baccalauréat",
+                        "DUT ou eq." = "Un diplôme universitaire correspondant à moins de 4 années d'études supérieures après le baccalauréat (par exemple : DUT",
+                        "Maîtrise, DEA ou eq." = "Un diplôme universitaire correspondant à plus de 4 années d'études supérieures après le baccalauréat (maîtrise, DEA, DES"
+                      ),
+                      REV = fct_recode(REV, "[   0€,  800€)" =  "Moins de 800 euros par mois",   
+        "[ 800€, 1200€)" = "De 800 euros à moins de 1200 euros par mois", 
+        "[1200€, 1600€)" = "De 1200 euros à moins de 1600 euros par mois",
+        "[1600€, 2000€)" = "De 1600 euros à moins de 2000 euros par mois",
+        "[2000€, 2500€)" = "De 2000 euros à moins de 2500 euros par mois",
+        "[2500€, 3000€)" = "De 2500 euros à moins de 3000 euros par mois",
+        "[3000€, 4000€)" = "De 3000 euros à moins de 4000 euros par mois",
+        "[4000€, 5000€)" = "De 4000 euros à moins de 5000 euros par mois",
+        "[5000€, 6000€)" = "De 5000 euros à moins de 6000 euros par mois",
+        "[6000€,      )" = "6000 euros par mois et plus" )
+)
+plotluck(data = vico_plot %>% select(-ID), formula = REV ~ DIPLONIV)
+plotluck(data = vico_plot %>% select(-ID), formula = REV ~ RESNB)
+plotluck(data = vico_plot %>% select(-ID), formula = REV ~ DIPLONIV + RESNB)
 ```
 
 

@@ -14,5 +14,6 @@ Toulouse](https://sdshs2023tlse.sciencesconf.org/), du 11 au 15 décembre
 # Experimentations avec les jeux de données
 
 Pour l’évenement, deux jeux de données sont proposés:  
-- [vico.hypotheses.org](./vico.hypotheses.org/vico_exploration.html) -
+-
+[vico.hypotheses.org](https://camembr.github.io/pud_2023/vico.hypotheses.org/vico_exploration.html) -
 []()
