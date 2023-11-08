@@ -1,1 +1,18 @@
-# pud_2023
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# Plateforme Universitaire de données de Toulouse
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+Le but de ce dépot est d’exposer des idées de visualisation des jeux de
+données proposés lors de la [Semaine Data SHS
+Toulouse](https://sdshs2023tlse.sciencesconf.org/), du 11 au 15 décembre
+2023 à l’Université Toulouse Jean-Jaurès.
+
+# Experimentations avec les jeux de données
+
+Pour l’évenement, deux jeux de données sont proposés:  
+- [vico.hypotheses.org](./vico.hypotheses.org/vico_exploration.html) -
+[]()
